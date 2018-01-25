@@ -1,0 +1,13 @@
+.idea/*
+
+/todo-rest-api/*
+!/todo-rest-api/.envrc
+
+!/todo-rest-api/src/
+/todo-rest-api/src/*
+!/todo-rest-api/src/github.com/
+/todo-rest-api/src/github.com/*
+!/todo-rest-api/src/github.com/jcloutz/
+!/todo-rest-api/src/github.com/jcloutz/todo-rest-api/vendor/
+
+# !/todo-rest-api/src/github.com/jcloutz/todo-rest-api/**
