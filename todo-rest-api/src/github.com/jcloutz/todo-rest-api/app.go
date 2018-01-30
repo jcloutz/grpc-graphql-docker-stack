@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"time"
 
@@ -31,7 +32,7 @@ type ErrorResponse struct {
 }
 
 func main() {
-	session, err := mgo.Dial("localhost")
+	session, err := mgo.Dial("database")
 	if err != nil {
 		panic(err)
 	}
@@ -47,7 +48,8 @@ func main() {
 	router.HandleFunc("/api/todos/{id}", h.UpdateOne).Methods("PUT")
 	router.HandleFunc("/api/todos", h.CreateTodo).Methods("POST")
 
-	http.ListenAndServe("localhost:8080", router)
+	log.Println("Listening on port 8080")
+	http.ListenAndServe(":8080", router)
 }
 
 type Handlers struct {

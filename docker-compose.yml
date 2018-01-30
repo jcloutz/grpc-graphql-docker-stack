@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.3"
 
 services:
     database:
@@ -7,5 +7,32 @@ services:
             - "27017:27017"
         volumes:
             - mongo_data:/data/db
+        networks:
+            - backend
+    rest-api:
+        build:
+            context: ./todo-rest-api/src/github.com/jcloutz/todo-rest-api
+        ports:
+            - "8080:8080"
+        depends_on:
+            - database
+        networks:
+            - frontend
+            - backend
+
+    grpc-api:
+        build:
+            context: ./todo-grpc-api/src/github.com/jcloutz/todo-grpc-api
+        ports:
+            - "8081:8081"
+        depends_on:
+            - database
+        networks:
+            - frontend
+            - backend
 volumes:
     mongo_data:
+
+networks:
+    frontend:
+    backend:

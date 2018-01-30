@@ -10,4 +10,14 @@
 !/todo-rest-api/src/github.com/jcloutz/
 !/todo-rest-api/src/github.com/jcloutz/todo-rest-api/vendor/
 
+/todo-grpc-api/*
+!/todo-grpc-api/.envrc
+
+!/todo-grpc-api/src/
+/todo-grpc-api/src/*
+!/todo-grpc-api/src/github.com/
+/todo-grpc-api/src/github.com/*
+!/todo-grpc-api/src/github.com/jcloutz/
+!/todo-grpc-api/src/github.com/jcloutz/todo-grpc-api/vendor/
+
 # !/todo-rest-api/src/github.com/jcloutz/todo-rest-api/**

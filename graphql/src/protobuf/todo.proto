@@ -1,0 +1,36 @@
+syntax = "proto3";
+package todo;
+
+import "google/protobuf/timestamp.proto";
+
+service Todo {
+
+    rpc GetTodos (TodoFilter) returns (stream TodoResponse) {}
+
+    rpc CreateTodo (TodoCreateRequest) returns (TodoResponse) {}
+
+    rpc UpdateTodo (TodoUpdateRequest) returns (TodoResponse) {}
+}
+
+message TodoCreateRequest {
+    string name = 1;
+    bool complete = 2;
+}
+
+message TodoFilter {
+    string id = 1;
+}
+
+message TodoUpdateRequest {
+    string id = 1;
+    string name = 2;
+    bool complete = 3;
+}
+
+message TodoResponse {
+    string id = 1;
+    string name = 2;
+    bool complete = 3;
+    google.protobuf.Timestamp createdAt = 4;
+    google.protobuf.Timestamp updatedAt = 5;
+}
