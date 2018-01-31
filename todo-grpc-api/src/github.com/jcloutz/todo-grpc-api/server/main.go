@@ -109,6 +109,41 @@ func (t *todoService) UpdateTodo(ctx context.Context, in *todoPb.TodoUpdateReque
 	return todoToProtobuf(&todo), nil
 }
 
+func RequestStreamLogger() grpc.ServerOption {
+	return grpc.StreamInterceptor(requestStreamLogger)
+}
+
+func requestStreamLogger(
+	srv interface{},
+	ss grpc.ServerStream,
+	info *grpc.StreamServerInfo,
+	handler grpc.StreamHandler,
+) error {
+	start := time.Now()
+
+	err := handler(srv, ss)
+	log.Printf("invoke server method=%s duration=%s error=%s", info.FullMethod, time.Since(start), err)
+
+	return err
+}
+
+func RequestLogger() grpc.ServerOption {
+	return grpc.UnaryInterceptor(requestLogger)
+}
+
+func requestLogger(
+	ctx context.Context,
+	req interface{},
+	info *grpc.UnaryServerInfo,
+	handler grpc.UnaryHandler,
+) (interface{}, error) {
+	start := time.Now()
+	resp, err := handler(ctx, req)
+	log.Printf("invoke server method=%s duration=%s error=%s", info.FullMethod, time.Since(start), err)
+
+	return resp, err
+}
+
 func main() {
 	session, err := mgo.Dial("database")
 	if err != nil {
@@ -122,7 +157,7 @@ func main() {
 	service := todoService{
 		db: session,
 	}
-	s := grpc.NewServer()
+	s := grpc.NewServer(RequestLogger(), RequestStreamLogger())
 	todoPb.RegisterTodoServer(s, &service)
 	log.Println("Listening on port 8081")
 	s.Serve(lis)

@@ -33,6 +33,13 @@ export default class ArticlesController extends CrudController<IArticle> impleme
             console.log(`Finished in ${time}ms`)
         })
         call.on('status', () => console.log('status'))
+        const update = new todoMessages.TodoUpdateRequest()
+        update.setId("5a7124b8f092db0001c8a923")
+        update.setComplete(false)
+        update.setName(update.getName())
+        client.updateTodo(update, (err, resp) => {
+            console.log(err, resp.getComplete())
+        })
         try {
             const entities: IArticle[] = await this.crudResolver.getAll();
 

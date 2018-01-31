@@ -57,11 +57,16 @@ func main() {
 
 	client := todoPb.NewTodoClient(conn)
 
-	updateTodo(client, &todoPb.TodoUpdateRequest{
-		Id:       "5a70b1ac541f30094ce4542f",
-		Name:     "gRPC Works!",
-		Complete: true,
+	createTodo(client, &todoPb.TodoCreateRequest{
+		Name:     "It works!",
+		Complete: false,
 	})
+
+	// updateTodo(client, &todoPb.TodoUpdateRequest{
+	// 	Id:       "5a70b1ac541f30094ce4542f",
+	// 	Name:     "gRPC Works!",
+	// 	Complete: true,
+	// })
 
 	getTodos(client, &todoPb.TodoFilter{})
 }
