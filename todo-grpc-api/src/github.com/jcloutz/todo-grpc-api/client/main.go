@@ -49,6 +49,21 @@ func updateTodo(client todoPb.TodoClient, update *todoPb.TodoUpdateRequest) {
 }
 
 func main() {
+	// Set up TLS
+	// cert, err := tls.LoadX509KeyPair("/Users/jeremyc/develop/docker/grpc-graphql-docker-stack/secrets/grpc-api.crt", "/Users/jeremyc/develop/docker/grpc-graphql-docker-stack/secrets/grpc-api.key")
+	// if err != nil {
+	// 	log.Fatalf("Error loading cert: %s", err)
+	// 	return
+	// }
+	// config := tls.Config{
+	// 	Certificates:       []tls.Certificate{cert},
+	//     InsecureSkipVerify: true,
+
+	// }
+
+	// creds := credentials.NewTLS(&config)
+
+	// conn, err := grpc.Dial(address, grpc.WithTransportCredentials(creds))
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Did not connect: %v", err)

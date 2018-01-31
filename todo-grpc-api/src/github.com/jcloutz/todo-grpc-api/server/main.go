@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	port       = ":8081"
+	port       = ":443"
 	database   = "todo-app"
 	collection = "todos"
 )
@@ -157,6 +157,20 @@ func main() {
 	service := todoService{
 		db: session,
 	}
+
+	// Set up TLS
+	// cert, err := tls.LoadX509KeyPair("/run/secrets/grpc_api_crt", "/run/secrets/grpc_api_key")
+	// if err != nil {
+	// 	log.Fatalf("Error loading cert: %s", err)
+	// 	return
+	// }
+	// config := tls.Config{
+	// 	Certificates: []tls.Certificate{cert},
+	// 	// InsecureSkipVerify: true,
+	// }
+
+	// serverOption := grpc.Creds(credentials.NewTLS(&config))
+	// s := grpc.NewServer(serverOption, RequestLogger(), RequestStreamLogger())
 	s := grpc.NewServer(RequestLogger(), RequestStreamLogger())
 	todoPb.RegisterTodoServer(s, &service)
 	log.Println("Listening on port 8081")

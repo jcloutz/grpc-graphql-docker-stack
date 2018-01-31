@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.1"
 
 services:
     database:
@@ -23,16 +23,59 @@ services:
     grpc-api:
         build:
             context: ./todo-grpc-api/src/github.com/jcloutz/todo-grpc-api
-        ports:
-            - "8081:8081"
+        # ports:
+        #     - "443:8081"
         depends_on:
             - database
         networks:
+            - backend
+        secrets:
+            - server_crt
+            - server_key
+            - client_crt
+            - client_key
+            - grpc_api_crt
+            - grpc_api_key
+    graphql:
+        build:
+            context: ./graphql
+        command: npm run nodemon:start
+        volumes:
+            - ./graphql:/usr/app/
+        environment:
+            - PORT=8000
+            - HOST=0.0.0.0
+            - PROJECT_DIR=/usr/app/
+            - NODE_ENV=development
+            - LOG_LEVEL=debug
+        networks:
             - frontend
             - backend
+        ports:
+            - "8000:8000"
+        secrets:
+            - server_crt
+            - server_key
+            - client_crt
+            - client_key
+            - grpc_api_crt
+            - grpc_api_key
 volumes:
     mongo_data:
 
+secrets:
+    server_crt:
+        file: secrets/server.crt
+    server_key:
+        file: secrets/server.key
+    client_crt:
+        file: secrets/client.crt
+    client_key:
+        file: secrets/client.key
+    grpc_api_crt:
+        file: secrets/grpc-api.crt
+    grpc_api_key:
+        file: secrets/grpc-api.key
 networks:
     frontend:
     backend:

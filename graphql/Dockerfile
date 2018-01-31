@@ -1,20 +1,20 @@
-FROM node:8.1.2-alpine
+FROM node:8.9.1-alpine
 
 MAINTAINER BlackBox Vision
 
-RUN rm -rf PROJECT_DIR/node_modules
+RUN rm -rf /usr/app/node_modules
 
-ADD ./src PROJECT_DIR
-ADD ./logs PROJECT_DIR
-ADD ./data PROJECT_DIR
+ADD ./src /usr/app/
+ADD ./logs /usr/app/
+ADD ./data /usr/app/
 
-ADD ./package.json PROJECT_DIR
-ADD ./package-lock.json PROJECT_DIR
-ADD ./tsconfig.json PROJECT_DIR
+ADD ./package.json /usr/app/
+ADD ./package-lock.json /usr/app/
+ADD ./tsconfig.json /usr/app/
 
-WORKDIR PROJECT_DIR
+WORKDIR /usr/app/
 
-EXPOSE PORT
+EXPOSE 8000
 
 RUN npm prune
 RUN npm install
