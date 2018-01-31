@@ -8,4 +8,4 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=0 /go/src/github.com/jcloutz/todo-grpc-api/app .
 CMD ["./app"]
-EXPOSE 443
+EXPOSE 8081

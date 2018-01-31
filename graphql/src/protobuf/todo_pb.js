@@ -11,7 +11,6 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.exportSymbol('proto.todo.TodoCreateRequest', null, global);
 goog.exportSymbol('proto.todo.TodoFilter', null, global);
 goog.exportSymbol('proto.todo.TodoResponse', null, global);
@@ -577,8 +576,8 @@ proto.todo.TodoResponse.toObject = function(includeInstance, msg) {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
     name: jspb.Message.getFieldWithDefault(msg, 2, ""),
     complete: jspb.Message.getFieldWithDefault(msg, 3, false),
-    createdat: (f = msg.getCreatedat()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    updatedat: (f = msg.getUpdatedat()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    createdat: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    updatedat: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -628,13 +627,11 @@ proto.todo.TodoResponse.deserializeBinaryFromReader = function(msg, reader) {
       msg.setComplete(value);
       break;
     case 4:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setCreatedat(value);
       break;
     case 5:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setUpdatedat(value);
       break;
     default:
@@ -688,19 +685,17 @@ proto.todo.TodoResponse.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getCreatedat();
-  if (f != null) {
-    writer.writeMessage(
+  if (f !== 0) {
+    writer.writeInt64(
       4,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+      f
     );
   }
   f = message.getUpdatedat();
-  if (f != null) {
-    writer.writeMessage(
+  if (f !== 0) {
+    writer.writeInt64(
       5,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+      f
     );
   }
 };
@@ -754,62 +749,32 @@ proto.todo.TodoResponse.prototype.setComplete = function(value) {
 
 
 /**
- * optional google.protobuf.Timestamp createdAt = 4;
- * @return {?proto.google.protobuf.Timestamp}
+ * optional int64 createdAt = 4;
+ * @return {number}
  */
 proto.todo.TodoResponse.prototype.getCreatedat = function() {
-  return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
-/** @param {?proto.google.protobuf.Timestamp|undefined} value */
+/** @param {number} value */
 proto.todo.TodoResponse.prototype.setCreatedat = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
-};
-
-
-proto.todo.TodoResponse.prototype.clearCreatedat = function() {
-  this.setCreatedat(undefined);
+  jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.todo.TodoResponse.prototype.hasCreatedat = function() {
-  return jspb.Message.getField(this, 4) != null;
-};
-
-
-/**
- * optional google.protobuf.Timestamp updatedAt = 5;
- * @return {?proto.google.protobuf.Timestamp}
+ * optional int64 updatedAt = 5;
+ * @return {number}
  */
 proto.todo.TodoResponse.prototype.getUpdatedat = function() {
-  return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
-/** @param {?proto.google.protobuf.Timestamp|undefined} value */
+/** @param {number} value */
 proto.todo.TodoResponse.prototype.setUpdatedat = function(value) {
-  jspb.Message.setWrapperField(this, 5, value);
-};
-
-
-proto.todo.TodoResponse.prototype.clearUpdatedat = function() {
-  this.setUpdatedat(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.todo.TodoResponse.prototype.hasUpdatedat = function() {
-  return jspb.Message.getField(this, 5) != null;
+  jspb.Message.setField(this, 5, value);
 };
 
 

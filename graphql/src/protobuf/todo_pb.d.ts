@@ -2,7 +2,6 @@
 // file: todo.proto
 
 import * as jspb from "google-protobuf";
-import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
 export class TodoCreateRequest extends jspb.Message { 
     getName(): string;
@@ -89,17 +88,11 @@ export class TodoResponse extends jspb.Message {
     getComplete(): boolean;
     setComplete(value: boolean): void;
 
+    getCreatedat(): number;
+    setCreatedat(value: number): void;
 
-    hasCreatedat(): boolean;
-    clearCreatedat(): void;
-    getCreatedat(): google_protobuf_timestamp_pb.Timestamp | undefined;
-    setCreatedat(value?: google_protobuf_timestamp_pb.Timestamp): void;
-
-
-    hasUpdatedat(): boolean;
-    clearUpdatedat(): void;
-    getUpdatedat(): google_protobuf_timestamp_pb.Timestamp | undefined;
-    setUpdatedat(value?: google_protobuf_timestamp_pb.Timestamp): void;
+    getUpdatedat(): number;
+    setUpdatedat(value: number): void;
 
 
     serializeBinary(): Uint8Array;
@@ -117,7 +110,7 @@ export namespace TodoResponse {
         id: string,
         name: string,
         complete: boolean,
-        createdat?: google_protobuf_timestamp_pb.Timestamp.AsObject,
-        updatedat?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        createdat: number,
+        updatedat: number,
     }
 }

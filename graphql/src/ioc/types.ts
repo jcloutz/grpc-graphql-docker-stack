@@ -9,6 +9,7 @@ export const DataStores = {
 export const Controllers = {
     UsersController: Symbol('UsersController'),
     ArticlesController: Symbol('ArticlesController'),
+    TodosController: Symbol('TodosController'),
 };
 
 // Factories defined in the container
@@ -29,6 +30,7 @@ export const Repositories = {
     BaseRepository: Symbol('BaseRepository'),
     UserRepository: Symbol('UserRepository'),
     ArticleRepository: Symbol('ArticleRepository'),
+    TodoRepository: Symbol('TodoRepository'),
 };
 
 // Resolvers defined in the container
@@ -47,6 +49,7 @@ export const Services = {
     Container: Symbol('Container'),
     Config: Symbol('Config'),
     Logger: Symbol('Logger'),
+    Todos: Symbol('Todos'),
 };
 
 export default {

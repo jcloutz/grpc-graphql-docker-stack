@@ -2,11 +2,13 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"io"
 	"log"
 
 	todoPb "github.com/jcloutz/todo-grpc-api/todo"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 const address = "localhost:8081"
@@ -50,21 +52,20 @@ func updateTodo(client todoPb.TodoClient, update *todoPb.TodoUpdateRequest) {
 
 func main() {
 	// Set up TLS
-	// cert, err := tls.LoadX509KeyPair("/Users/jeremyc/develop/docker/grpc-graphql-docker-stack/secrets/grpc-api.crt", "/Users/jeremyc/develop/docker/grpc-graphql-docker-stack/secrets/grpc-api.key")
-	// if err != nil {
-	// 	log.Fatalf("Error loading cert: %s", err)
-	// 	return
-	// }
-	// config := tls.Config{
-	// 	Certificates:       []tls.Certificate{cert},
-	//     InsecureSkipVerify: true,
+	cert, err := tls.LoadX509KeyPair("/Users/jeremycloutier/develop/tech-talks/docker-swarm/secrets/client.crt", "/Users/jeremycloutier/develop/tech-talks/docker-swarm/secrets/client.key")
+	if err != nil {
+		log.Fatalf("Error loading cert: %s", err)
+		return
+	}
+	config := tls.Config{
+		Certificates:       []tls.Certificate{cert},
+		InsecureSkipVerify: true,
+	}
 
-	// }
+	creds := credentials.NewTLS(&config)
 
-	// creds := credentials.NewTLS(&config)
-
-	// conn, err := grpc.Dial(address, grpc.WithTransportCredentials(creds))
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(creds))
+	// conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Did not connect: %v", err)
 	}

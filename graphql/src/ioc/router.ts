@@ -3,8 +3,10 @@ import ArticleRoutes from 'app/api/articles/routes';
 import UserRoutes from 'app/api/users/routes';
 import { IServerRegisterable } from 'app/interfaces';
 import Types from 'app/ioc/types';
+import TodoRoutes from "app/api/todos/routes";
 
 export default (c: interfaces.Container): void => {
     c.bind<IServerRegisterable>(Types.Routes.Route).to(UserRoutes);
     c.bind<IServerRegisterable>(Types.Routes.Route).to(ArticleRoutes);
+    c.bind<IServerRegisterable>(Types.Routes.Route).to(TodoRoutes);
 };

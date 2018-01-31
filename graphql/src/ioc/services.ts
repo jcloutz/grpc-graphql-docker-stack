@@ -4,6 +4,9 @@ import { Logger, TransportInstance, transports } from 'winston';
 import Config from 'app/config';
 import { IConfig, ILogger } from 'app/interfaces';
 import Types from 'app/ioc/types';
+import * as todoService from "app/protobuf/todo_grpc_pb";
+import * as grpc from 'grpc';
+import {ITodoClient} from "../protobuf/todo_grpc_pb";
 
 export default (c: interfaces.Container): void => {
     c.bind<interfaces.Container>(Types.Services.Container).toConstantValue(c);
@@ -33,4 +36,13 @@ export default (c: interfaces.Container): void => {
             transports: context.container.getAll('LoggerTransport'),
         });
     });
+
+    c.bind<ITodoClient>(Types.Services.Todos).toDynamicValue((context: interfaces.Context) => {
+        const config = context.container.get<IConfig>(Types.Services.Config);
+        return new todoService.TodoClient('localhost:8081', grpc.credentials.createSsl(
+            config.grpc.certs.root,
+            config.grpc.certs.key,
+            config.grpc.certs.cert
+        ));
+    }).inSingletonScope();
 };

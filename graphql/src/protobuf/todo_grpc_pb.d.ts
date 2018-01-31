@@ -3,7 +3,6 @@
 
 import * as grpc from "grpc";
 import * as todo_pb from "./todo_pb";
-import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
 interface ITodoService extends grpc.IMethodsMap {
     getTodos: IGetTodos;
@@ -43,6 +42,14 @@ interface IUpdateTodo {
     requestDeserialize: (buffer: Uint8Array) => todo_pb.TodoUpdateRequest;
     responseSerialize: (arg: todo_pb.TodoResponse) => Buffer;
     responseDeserialize: (buffer: Uint8Array) => todo_pb.TodoResponse;
+}
+
+export interface ITodoClient {
+    getTodos(request: todo_pb.TodoFilter, metadata?: grpc.Metadata): grpc.ClientReadableStream;
+    createTodo(request: todo_pb.TodoCreateRequest, callback: (error: Error | null, response: todo_pb.TodoResponse) => void): grpc.ClientUnaryCall;
+    createTodo(request: todo_pb.TodoCreateRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: todo_pb.TodoResponse) => void): grpc.ClientUnaryCall;
+    updateTodo(request: todo_pb.TodoUpdateRequest, callback: (error: Error | null, response: todo_pb.TodoResponse) => void): grpc.ClientUnaryCall;
+    updateTodo(request: todo_pb.TodoUpdateRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: todo_pb.TodoResponse) => void): grpc.ClientUnaryCall;
 }
 
 export const TodoService: ITodoService;

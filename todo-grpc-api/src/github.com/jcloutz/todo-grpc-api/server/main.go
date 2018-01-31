@@ -2,21 +2,22 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
 	"log"
 	"net"
 	"time"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"gopkg.in/mgo.v2"
 
-	"github.com/golang/protobuf/ptypes"
 	todoPb "github.com/jcloutz/todo-grpc-api/todo"
 	"gopkg.in/mgo.v2/bson"
 )
 
 const (
-	port       = ":443"
+	port       = ":8081"
 	database   = "todo-app"
 	collection = "todos"
 )
@@ -30,8 +31,8 @@ type Todo struct {
 }
 
 func todoToProtobuf(todo *Todo) *todoPb.TodoResponse {
-	createdAt, _ := ptypes.TimestampProto(todo.CreatedAt)
-	updatedAt, _ := ptypes.TimestampProto(todo.UpdatedAt)
+	createdAt := todo.CreatedAt.Unix()
+	updatedAt := todo.UpdatedAt.Unix()
 
 	return &todoPb.TodoResponse{
 		Id:        todo.ID.Hex(),
@@ -159,19 +160,19 @@ func main() {
 	}
 
 	// Set up TLS
-	// cert, err := tls.LoadX509KeyPair("/run/secrets/grpc_api_crt", "/run/secrets/grpc_api_key")
-	// if err != nil {
-	// 	log.Fatalf("Error loading cert: %s", err)
-	// 	return
-	// }
-	// config := tls.Config{
-	// 	Certificates: []tls.Certificate{cert},
-	// 	// InsecureSkipVerify: true,
-	// }
+	cert, err := tls.LoadX509KeyPair("/run/secrets/server_crt", "/run/secrets/server_key")
+	if err != nil {
+		log.Fatalf("Error loading cert: %s", err)
+		return
+	}
+	config := tls.Config{
+		Certificates: []tls.Certificate{cert},
+		// InsecureSkipVerify: true,
+	}
 
-	// serverOption := grpc.Creds(credentials.NewTLS(&config))
-	// s := grpc.NewServer(serverOption, RequestLogger(), RequestStreamLogger())
-	s := grpc.NewServer(RequestLogger(), RequestStreamLogger())
+	serverOption := grpc.Creds(credentials.NewTLS(&config))
+	s := grpc.NewServer(serverOption, RequestLogger(), RequestStreamLogger())
+	// s := grpc.NewServer(RequestLogger(), RequestStreamLogger())
 	todoPb.RegisterTodoServer(s, &service)
 	log.Println("Listening on port 8081")
 	s.Serve(lis)

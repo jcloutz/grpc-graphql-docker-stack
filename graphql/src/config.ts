@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as fs from "fs";
 const config = {
     swagger: {
         options: {
@@ -38,6 +39,18 @@ const config = {
             },
         },
     },
+    grpc: {
+        certs: {
+            root: fs.readFileSync(process.cwd() + '/../secrets/myCA.pem'),
+            cert: fs.readFileSync(process.cwd() + '/../secrets/client.crt'),
+            key: fs.readFileSync(process.cwd() + '/../secrets/client.key'),
+        },
+        services: {
+            todos: {
+                address: 'localhost:8081',
+            }
+        }
+    }
 };
 
 export default config;

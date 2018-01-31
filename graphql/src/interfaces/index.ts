@@ -62,19 +62,45 @@ export interface IArticle {
     name?: string;
 }
 
+export interface ITodo {
+    id?: string;
+    name?: string;
+    completed?: boolean;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
+
+export interface ITodoEdit {
+    name: string;
+    completed: boolean;
+}
+
 /**
  * 4. Repositories
  */
-export interface IRepository<EntityType, PKeyType = string> {
-    save: (data: EntityType) => Promise<EntityType>;
+export interface IRead<EntityType, PKeyType = string> {
     getById: (_id: PKeyType) => Promise<EntityType>;
     getAll: () => Promise<EntityType[]>;
+}
+
+export interface IWrite<EntityType, PKeyType = string> {
+    save: (data: EntityType) => Promise<EntityType>;
     updateById: (_id: PKeyType, data: EntityType) => Promise<EntityType>;
     deleteById: (_id: PKeyType) => Promise<PKeyType>;
 }
 
+export interface IRepository<EntityType, PKeyType = string>
+    extends IRead<EntityType, PKeyType>, IWrite<EntityType, PKeyType> {}
+
 export interface IUserRepository extends IRepository<IUser, string> {}
 export interface IArticleRepository extends IRepository<IArticle, string> {}
+export interface ITodoRepository {
+    getById: (_id: string) => Promise<ITodo>;
+    getAll: () => Promise<ITodo[]>;
+    save: (data: ITodoEdit) => Promise<ITodo>;
+    updateById: (_id: string, data: ITodoEdit) => Promise<ITodo>;
+    deleteById: (_id: string) => Promise<string>;
+}
 
 /**
  * 5. Resolvers
@@ -108,3 +134,4 @@ export interface ICrudController<T> {
 
 export interface IUsersController extends ICrudController<IUser> {}
 export interface IArticlesController extends ICrudController<IArticle> {}
+export interface ITodosController extends ICrudController<ITodo> {}

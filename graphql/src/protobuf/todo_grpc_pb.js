@@ -3,7 +3,6 @@
 'use strict';
 var grpc = require('grpc');
 var todo_pb = require('./todo_pb.js');
-var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 
 function serialize_todo_TodoCreateRequest(arg) {
   if (!(arg instanceof todo_pb.TodoCreateRequest)) {
