@@ -1,4 +1,6 @@
 .idea/*
+*.pem
+.DS_Store
 
 /todo-rest-api/*
 !/todo-rest-api/.envrc

@@ -97,7 +97,7 @@ export interface IArticleRepository extends IRepository<IArticle, string> {}
 export interface ITodoRepository {
     getById: (_id: string) => Promise<ITodo>;
     getAll: () => Promise<ITodo[]>;
-    save: (data: ITodoEdit) => Promise<ITodo>;
+    save: (data: ITodoEdit) => Promise<ITodo | {} | void>;
     updateById: (_id: string, data: ITodoEdit) => Promise<ITodo>;
     deleteById: (_id: string) => Promise<string>;
 }

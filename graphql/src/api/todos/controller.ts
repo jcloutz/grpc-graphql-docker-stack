@@ -59,8 +59,8 @@ export default class TodosController implements ITodosController {
                 status: 201,
                 data: todo,
             }).code(201);
-        } catch (error) {
-            return response(Boom.badImplementation(error));
+        } catch (e) {
+            throw Boom.badImplementation('Unable to create entity');
         }
     }
 }

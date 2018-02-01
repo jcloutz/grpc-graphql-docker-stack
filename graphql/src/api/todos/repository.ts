@@ -3,12 +3,12 @@ import Types from 'app/ioc/types';
 import {ITodo, ITodoEdit, ITodoRepository} from "app/interfaces";
 import {ITodoClient} from "app/protobuf/todo_grpc_pb";
 import {TodoFilter, TodoResponse, TodoUpdateRequest} from "app/protobuf/todo_pb";
-import {TodoCreateRequest} from "../../protobuf/todo_pb";
+import {TodoCreateRequest} from "app/protobuf/todo_pb";
 
 @injectable()
 class TodoRepository implements ITodoRepository {
     /**
-     * Todo gRPC client instance
+     * gRPC client instance
      */
     protected todos: ITodoClient;
 
@@ -47,10 +47,10 @@ class TodoRepository implements ITodoRepository {
         });
     }
 
-    public getById(_id: string): Promise<ITodo> {
+    public getById(id: string): Promise<ITodo> {
         return new Promise((resolve, reject) => {
             const todos: ITodo[] = [];
-            const call = this.todos.getTodos(this.createFilter(_id));
+            const call = this.todos.getTodos(this.createFilter(id));
 
             call.on('data', (todo: TodoResponse) => {
                 todos.push({
@@ -70,14 +70,14 @@ class TodoRepository implements ITodoRepository {
         });
     }
 
-    public updateById(_id: string, data: ITodoEdit): Promise<ITodo> {
+    public updateById(id: string, data: ITodoEdit): Promise<ITodo> {
         return new Promise((resolve, reject) => {
             if (!data.completed || !data.name) {
                 reject(new Error('Update request must contain name and completed status'));
             }
             const completed = data.completed;
             const update = new TodoUpdateRequest();
-            update.setId(_id);
+            update.setId(id);
             update.setComplete(completed);
             update.setName(data.name);
 
@@ -91,7 +91,7 @@ class TodoRepository implements ITodoRepository {
         });
     }
 
-    public save(data: ITodoEdit): Promise<ITodo> {
+    public async save(data: ITodoEdit): Promise<ITodo> {
         return new Promise((resolve, reject) => {
             const completed = data.completed;
 
