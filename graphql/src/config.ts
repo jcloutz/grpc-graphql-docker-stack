@@ -41,13 +41,13 @@ const config = {
     },
     grpc: {
         certs: {
-            root: fs.readFileSync(process.cwd() + '/../secrets/myCA.pem'),
-            cert: fs.readFileSync(process.cwd() + '/../secrets/client.crt'),
-            key: fs.readFileSync(process.cwd() + '/../secrets/client.key'),
+            root: fs.readFileSync('/run/secrets/ca_root'),
+            cert: fs.readFileSync('/run/secrets/client_crt'),
+            key: fs.readFileSync('/run/secrets/client_key'),
         },
         services: {
             todos: {
-                address: 'localhost:8081',
+                address: 'grpc-api:8081',
             }
         }
     }

@@ -1,7 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { IArticle, IArticleResolver, IUsersController } from 'app/interfaces';
-import Types from 'app/ioc/types';
-import {ILogger, ITodo, ITodoEdit, ITodoRepository, ITodosController} from "../../interfaces";
+import Types from '../../ioc/types';
+import {ITodoEdit, ITodoRepository, ITodosController} from "../../interfaces";
 import { Request, ReplyNoContinue } from "hapi";
 import * as Boom from 'boom';
 

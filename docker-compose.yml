@@ -32,26 +32,25 @@ services:
         secrets:
             - server_crt
             - server_key
-    # graphql:
-    #     build:
-    #         context: ./graphql
-    #     command: npm run nodemon:start
-    #     volumes:
-    #         - ./graphql:/usr/app/
-    #     environment:
-    #         - PORT=8000
-    #         - HOST=0.0.0.0
-    #         - PROJECT_DIR=/usr/app/
-    #         - NODE_ENV=development
-    #         - LOG_LEVEL=debug
-    #     networks:
-    #         - frontend
-    #         - backend
-    #     ports:
-    #         - "8000:8000"
-    #     secrets:
-    #         - client_crt
-    #         - client_key
+    graphql:
+        build:
+            context: ./graphql
+        # volumes:
+        #     - ./graphql:/usr/app/
+        environment:
+            - PORT=8000
+            - HOST=0.0.0.0
+            - PROJECT_DIR=/app/
+            - NODE_ENV=development
+            - LOG_LEVEL=debug
+        networks:
+            - frontend
+            - backend
+        ports:
+            - "8000:8000"
+        secrets:
+            - client_crt
+            - client_key
 volumes:
     mongo_data:
 
@@ -64,6 +63,8 @@ secrets:
         file: secrets/client.crt
     client_key:
         file: secrets/client.key
+    ca_root:
+        file: secrets/myCA.pem
 networks:
     frontend:
     backend:

@@ -1,4 +1,4 @@
-import BasePlugin from 'app/plugin/base-plugin';
+import BasePlugin from '../plugin/base-plugin';
 import { injectable } from 'inversify';
 
 @injectable()

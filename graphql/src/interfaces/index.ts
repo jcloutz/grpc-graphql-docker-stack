@@ -1,6 +1,6 @@
 import * as Hapi from 'hapi';
 import * as Nedb from 'nedb';
-import Config from 'app/config';
+import Config from '../config';
 
 /**
  * 1. Generic Interfaces

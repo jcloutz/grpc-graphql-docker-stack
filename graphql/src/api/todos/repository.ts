@@ -1,9 +1,9 @@
 import { inject, injectable, interfaces } from 'inversify';
-import Types from 'app/ioc/types';
-import {ITodo, ITodoEdit, ITodoRepository} from "app/interfaces";
-import {ITodoClient} from "app/protobuf/todo_grpc_pb";
-import {TodoFilter, TodoResponse, TodoUpdateRequest} from "app/protobuf/todo_pb";
-import {TodoCreateRequest} from "app/protobuf/todo_pb";
+import Types from '../../ioc/types';
+import {ITodo, ITodoEdit, ITodoRepository} from "../../interfaces";
+import {ITodoClient} from "../../protobuf/todo_grpc_pb";
+import {TodoFilter, TodoResponse, TodoUpdateRequest} from "../../protobuf/todo_pb";
+import {TodoCreateRequest} from "../../protobuf/todo_pb";
 
 @injectable()
 class TodoRepository implements ITodoRepository {

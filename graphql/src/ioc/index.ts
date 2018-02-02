@@ -1,12 +1,12 @@
 import { Container } from 'inversify';
-import controllers from 'app/ioc/controllers';
-import datastores from 'app/ioc/datastore';
-import factories from 'app/ioc/factories';
-import services from 'app/ioc/services';
-import plugins from 'app/ioc/plugins';
-import repositories from 'app/ioc/repositories';
-import resolvers from 'app/ioc/resolvers';
-import router from 'app/ioc/router';
+import controllers from '../ioc/controllers';
+import datastores from '../ioc/datastore';
+import factories from '../ioc/factories';
+import services from '../ioc/services';
+import plugins from '../ioc/plugins';
+import repositories from '../ioc/repositories';
+import resolvers from '../ioc/resolvers';
+import router from '../ioc/router';
 
 const container = new Container();
 

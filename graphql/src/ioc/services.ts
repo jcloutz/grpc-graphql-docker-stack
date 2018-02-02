@@ -1,10 +1,10 @@
 import 'winston-daily-rotate-file';
 import { interfaces } from 'inversify';
 import { Logger, TransportInstance, transports } from 'winston';
-import Config from 'app/config';
-import { IConfig, ILogger } from 'app/interfaces';
-import Types from 'app/ioc/types';
-import * as todoService from "app/protobuf/todo_grpc_pb";
+import Config from '../config';
+import { IConfig, ILogger } from '../interfaces';
+import Types from '../ioc/types';
+import * as todoService from "../protobuf/todo_grpc_pb";
 import * as grpc from 'grpc';
 import {ITodoClient} from "../protobuf/todo_grpc_pb";
 

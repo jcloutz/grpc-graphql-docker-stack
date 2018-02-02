@@ -4,7 +4,7 @@
 import * as grpc from "grpc";
 import * as todo_pb from "./todo_pb";
 
-interface ITodoService extends grpc.IMethodsMap {
+interface ITodoService extends grpc.ServiceDefinition {
     getTodos: IGetTodos;
     createTodo: ICreateTodo;
     updateTodo: IUpdateTodo;
@@ -54,7 +54,7 @@ export interface ITodoClient {
 
 export const TodoService: ITodoService;
 export class TodoClient extends grpc.Client {
-    constructor(address: string, credentials: any, options?: grpc.IClientOptions);
+    constructor(address: string, credentials: any, options?: object);
     public getTodos(request: todo_pb.TodoFilter, metadata?: grpc.Metadata): grpc.ClientReadableStream;
     public createTodo(request: todo_pb.TodoCreateRequest, callback: (error: Error | null, response: todo_pb.TodoResponse) => void): grpc.ClientUnaryCall;
     public createTodo(request: todo_pb.TodoCreateRequest, metadata: grpc.Metadata, callback: (error: Error | null, response: todo_pb.TodoResponse) => void): grpc.ClientUnaryCall;

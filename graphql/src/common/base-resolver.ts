@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { IRepository, IResolver } from 'app/interfaces';
+import { IRepository, IResolver } from '../interfaces';
 
 @injectable()
 export default class CrudResolver<T, PKeyType = string> implements IResolver<T, PKeyType> {

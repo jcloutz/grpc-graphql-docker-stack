@@ -1,8 +1,8 @@
 import * as DotEnv from 'dotenv';
 import 'reflect-metadata';
-import { ILogger, IServerFactory } from 'app/interfaces';
-import container from 'app/ioc';
-import Types from 'app/ioc/types';
+import { ILogger, IServerFactory } from './interfaces';
+import container from './ioc';
+import Types from './ioc/types';
 
 (async () => {
     DotEnv.config({

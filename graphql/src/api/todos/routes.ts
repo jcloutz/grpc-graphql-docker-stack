@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
-import BaseRouter from 'app/common/base-router';
-import { IRouteConfiguration, ITodosController } from 'app/interfaces';
-import Types from 'app/ioc/types';
-import validate from 'app/api/todos/validate';
-import TodosController from "app/api/todos/controller";
+import BaseRouter from '../../common/base-router';
+import { IRouteConfiguration, ITodosController } from '../../interfaces';
+import Types from '../../ioc/types';
+import validate from '../../api/todos/validate';
+import TodosController from "../../api/todos/controller";
 import * as Joi from "joi";
 
 @injectable()

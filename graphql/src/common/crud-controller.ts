@@ -1,7 +1,7 @@
 import * as Boom from 'boom';
 import * as Hapi from 'hapi';
 import { injectable } from 'inversify';
-import { ICrudController, IResolver } from 'app/interfaces';
+import { ICrudController, IResolver } from '../interfaces';
 
 @injectable()
 export default class CrudController<T> implements ICrudController<T> {
